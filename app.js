@@ -1745,6 +1745,161 @@ define(function(require) {
 				}
 			});
 
+			contentTemplate.find('#accountsmanager_productplan_save').on('click', function() {				
+				var form_data = monster.ui.getFormData('accountsmanager_productplan_form');
+
+				self.callApi({
+					resource: 'account.get',
+					data: {
+						accountId: accountData.id
+					},
+					success: function(data, status) {						
+						self.callApi({
+							resource: 'account.update',
+							data: {
+								accountId: accountData.id,
+								data: $.extend(true, {}, data.data, {
+									reseller_account: {
+										product: {
+											name: form_data.product_name
+										},
+										plan: {
+											name: form_data.plan_name
+										}
+									}
+								})
+							},
+							success: function(_data, _status) {
+								self.render({
+									selectedId: accountData.id,
+									selectedTab: 'tab-productplan',
+									callback: function() {
+										monster.ui.toast({
+											type: 'success',
+											message: self.i18n.active().toastrMessages.appstoreUpdateSuccess,
+											options: {
+												timeOut: 5000
+											}
+										});
+									}
+								});
+							}
+					});
+				}
+			});
+			});
+
+			contentTemplate.find('#accountsmanager_planfeatures_save').on('click', function() {
+				self.callApi({
+					resource: 'account.get',
+					data: {
+						accountId: accountData.id
+					},
+					success: function(data, status) {
+						var form_data = monster.ui.getFormData('accountsmanager_planfeatures_form');
+						self.callApi({
+							resource: 'account.update',
+							data: {
+								accountId: accountData.id,
+								data: $.extend(true, {}, data.data, {
+									reseller_account: {
+										features: form_data
+									}
+								})
+							},
+							success: function(_data, _status) {
+								self.render({
+									selectedId: accountData.id,
+									selectedTab: 'tab-planfeatures',
+									callback: function() {
+										monster.ui.toast({
+											type: 'success',
+											message: self.i18n.active().toastrMessages.appstoreUpdateSuccess,
+											options: {
+												timeOut: 5000
+											}
+										});
+									}
+								});
+							}
+						});
+					}
+				});
+			});
+
+			contentTemplate.find('#accountsmanager_planoptions_save').on('click', function() {
+				self.callApi({
+					resource: 'account.get',
+					data: {
+						accountId: accountData.id
+					},
+					success: function(data, status) {
+						self.callApi({
+							resource: 'account.update',
+							data: {
+								accountId: accountData.id,
+								data: $.extend(true, {}, data.data, {
+									reseller_account: monster.ui.getFormData('accountsmanager_planoptions_form')
+								})
+							},
+							success: function(_data, _status) {
+								self.render({
+									selectedId: accountData.id,
+									selectedTab: 'tab-planoptions',
+									callback: function() {
+										monster.ui.toast({
+											type: 'success',
+											message: self.i18n.active().toastrMessages.appstoreUpdateSuccess,
+											options: {
+												timeOut: 5000
+											}
+										});
+									}
+								});
+							}
+						});
+					}
+				});
+			});
+
+			contentTemplate.find('#accountsmanager_plancompliance_save').on('click', function() {
+				self.callApi({
+					resource: 'account.get',
+					data: {
+						accountId: accountData.id
+					},
+					success: function(data, status) {
+						self.callApi({
+							resource: 'account.update',
+							data: {
+								accountId: accountData.id,
+								data: $.extend(true, {}, data.data, {
+									reseller_account: {
+										compliance: monster.ui.getFormData('accountsmanager_plancompliance_form')
+									}
+								})
+							},
+							success: function(_data, _status) {
+								self.render({
+									selectedId: accountData.id,
+									selectedTab: 'tab-compliance',
+									callback: function() {
+										monster.ui.toast({
+											type: 'success',
+											message: self.i18n.active().toastrMessages.appstoreUpdateSuccess,
+											options: {
+												timeOut: 5000
+											}
+										});
+									}
+								});
+							}
+						});
+					}
+				});
+			});
+
+
 			// self.adjustTabsWidth(contentTemplate.find('ul.account-tabs > li'));
 
 			$.each(contentTemplate.find('form'), function() {

@@ -62,12 +62,16 @@
 		"limits": "Limits",
 		"restrictions": "Control Center Access",
 		"notes": "Notes",
+		"productPlan": "Plan",
+		"planFeatures": "Features",
+		"planOptions": "Options",
 		"__comment": "UI-1508: Adding appstore restrictions",
 		"__version": "3.22",
 		"appstore": "App Exchange",
 		"__comment": "UI-1855: Add new section to manage numbers features (e.g. e911, cnam)",
 		"__version": "3.23",
-		"numbersFeatures": "Numbers Features"
+		"numbersFeatures": "Numbers Features",
+		"planCompliance": "Compliance"
 	},
 	"classifiers": {
 		"unknown": {
@@ -262,6 +266,51 @@
 			"e911": "E911",
 			"cnam": "CNAM"
 		}
+	},
+
+	"__comment": "VirtualPBX Addition: Plan Features",
+	"planFeatures": {
+		"legend": "Enable/Disable plan features",
+		"features": {
+			"audioConferences": "Audio Conferences",
+			"account_menu": "Account Menu (Resellers)",
+			"call_queues": "ACD Queues",
+			"callRecording": "Call Recording",
+			"call_monitor": "Call Monitor",
+			"collaboration": "Collaboration",
+			"web_hooks": "Webhooks",
+			"web_phone": "Web Phone",
+			"sip_trunks": "SIP Trunks",
+			"reports": "Advanced Reports",
+			"private_recording": "Private Recording",
+			"integration_aws": "Integration: AWS",
+			"integration_ms_teams": "Integration: Teams",
+			"internet_fax": "Internet Fax",
+			"call_logs": "Call Logs",
+			"call_queues_pro": "ACD Queues Pro",
+			"account_hold": "Account Hold",
+			"video_conferences": "Video Conferences",
+			"text_messages": "Text Messages",
+			"disa": "Direct Inward Access",
+			"auto_attendants": "Auto Attendants ",
+			"auto_forward": "Auto Forward",
+			"auto_route": "Auto Route",
+			"select_route": "Select Route",
+			"callflows": "Advanced Callflows",
+			"transcriptions": "Voicemail Transcriptions",
+			"dynamic_callerid": "Dynamic Caller ID"
+		}
+	},
+
+	"__comment": "VirtualPBX Addition: Plan Options",
+	"planOptions": {
+		"legend": "Update plan options"
+	},
+
+	"__comment": "VirtualPBX Addition: Plan Options",
+	"planCompliance": {
+		"legend": "Compliance Restrictions",
+		"notifications": "Allow Email Notifications"
 	},
 
 	"__comment": "UI-1995: Add an announcement to users",

@@ -15,7 +15,19 @@
 					<li class="tab-carrier {{#unless account.enabled}}disabled{{/unless}}"><a href="#accountsmanager_carrier_tab"> {{ i18n.carrierTab }}</a></li>
 				{{/unless}}
 				<li class="tab-notes"><a href="#accountsmanager_notes_tab">{{ i18n.tabTitles.notes }}</a></li>
-				<li class="tab-appstore"><a href="#accountsmanager_appstore_tab">{{ i18n.tabTitles.appstore }}</a></li>
+				<!-- <li class="tab-appstore"><a href="#accountsmanager_appstore_tab">{{ i18n.tabTitles.appstore }}</a></li> -->
+                <li class="tab-productplan {{#unless account.enabled}}disabled{{/unless}}">
+					<a href="#accountsmanager_productplan_tab">{{ i18n.tabTitles.productPlan }}</a>
+				</li>
+				<li class="tab-planfeatures {{#unless account.enabled}}disabled{{/unless}}">
+					<a href="#accountsmanager_planfeatures_tab">{{ i18n.tabTitles.planFeatures }}</a>
+				</li>
+				<li class="tab-planoptions {{#unless account.enabled}}disabled{{/unless}}">
+					<a href="#accountsmanager_planoptions_tab">{{ i18n.tabTitles.planOptions }}</a>
+				</li>
+				<li class="tab-plancompliance {{#unless account.enabled}}disabled{{/unless}}">
+					<a href="#accountsmanager_plancompliance_tab">{{ i18n.tabTitles.planCompliance }}</a>
+				</li>
 			</ul>
 		</div>
 		<div class="tab-content">
@@ -580,6 +592,611 @@
 					<button type="button" id="accountsmanager_appstore_save" class="monster-button-success">{{ i18n.update }}</button>
 				</div>
 			</div>
+
+			<div class="tab-pane" id="accountsmanager_productplan_tab">
+				<form id="accountsmanager_productplan_form" class="form-horizontal">
+					<legend>{{ i18n.productPlan.legend }}</legend>
+
+					<div class="control-group">
+						<label for="product_name" class="control-label">Product</label>
+						<div class="controls">
+							<select id="product_name" name="product_name">
+								{{#select account.reseller_account.product.name}}
+								<option value="Dash">Dash</option>
+								<option value="ProSIP">ProSIP</option>
+								{{/select}}
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="plan_name" class="control-label">Plan</label>
+						<div class="controls">
+							<select id="plan_name" name="plan_name">
+								{{#select account.reseller_account.plan.name}}
+									<option value="Advanced">Advanced</option>
+									<option value="Basic">Basic</option>
+									<option value="Flex">Flex</option>
+									<option value="Essentials">Essentials</option>
+									<option value="Forward 100">Forward 100</option>
+									<option value="Forward 250">Forward 250</option>
+									<option value="Forward 500">Forward 500</option>
+									<option value="Go">Go</option>
+									<option value="Original">Original</option>
+									<option value="Spark">Spark</option>
+									<option value="Ultimate">Ultimate</option>
+									<option value="Unlimited">Unlimited</option>
+									<option value="Unlimited + CRM">Unlimited + CRM</option>
+									<option value="Unlimited + TF">Unlimited + TF</option>
+									<option value="VirtualPBX 1000">VirtualPBX 1000</option>
+									<option value="VirtualPBX 300">VirtualPBX 300</option>
+									<option value="VirtualPBX 500">VirtualPBX 500</option>
+									<option value="Voicemail Only">Voicemail Only</option>
+								{{/select}}
+							</select>
+						</div>
+					</div>
+
+				</form>
+				<div class="clearfix buttons-div">
+					<button id="accountsmanager_productplan_save" class="monster-button-success">{{i18n.update}}</button>
+				</div>
+			</div>
+
+			<div class="tab-pane" id="accountsmanager_planfeatures_tab">
+				<form id="accountsmanager_planfeatures_form" class="form-horizontal">
+					<legend>{{ i18n.planFeatures.legend }}</legend>
+
+					<div class="control-group">
+						<label for="account_hold" class="control-label">{{ i18n.planFeatures.features.account_hold }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.account_hold "===" undefined}}
+							<input type="checkbox" name="account_hold">
+						{{else}}
+							{{#compare account.reseller_account.features.account_hold "===" false}}
+								<input type="checkbox" name="account_hold">
+							{{else}}
+								<input type="checkbox" name="account_hold" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="account_menu" class="control-label">{{ i18n.planFeatures.features.account_menu }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.account_menu "===" undefined}}
+							<input type="checkbox" name="account_menu">
+						{{else}}
+							{{#compare account.reseller_account.features.account_menu "===" false}}
+								<input type="checkbox" name="account_menu">
+							{{else}}
+								<input type="checkbox" name="account_menu" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="call_queues" class="control-label">{{ i18n.planFeatures.features.call_queues }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.call_queues "===" undefined}}
+							<input type="checkbox" name="call_queues" id="call_queues">
+						{{else}}
+							{{#compare account.reseller_account.features.call_queues "===" false}}
+								<input type="checkbox" name="call_queues" id="call_queues">
+							{{else}}
+								<input type="checkbox" name="call_queues" id="call_queues" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="call_queues_pro" class="control-label">{{ i18n.planFeatures.features.call_queues_pro }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.call_queues_pro "===" undefined}}
+							<input type="checkbox" name="call_queues_pro" id="call_queues_pro">
+						{{else}}
+							{{#compare account.reseller_account.features.call_queues_pro "===" false}}
+								<input type="checkbox" name="call_queues_pro" id="call_queues_pro">
+							{{else}}
+								<input type="checkbox" name="call_queues_pro" id="call_queues_pro" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="audioConferences" class="control-label">{{ i18n.planFeatures.features.audioConferences }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.audio_conferences "===" undefined}}
+							<input type="checkbox" name="audio_conferences">
+						{{else}}
+							{{#compare account.reseller_account.features.audio_conferences "===" false}}
+								<input type="checkbox" name="audio_conferences">
+							{{else}}
+								<input type="checkbox" name="audio_conferences" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="reports" class="control-label">{{ i18n.planFeatures.features.reports }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.reports "===" undefined}}
+							<input type="checkbox" name="reports">
+						{{else}}
+							{{#compare account.reseller_account.features.reports "===" false}}
+								<input type="checkbox" name="reports">
+							{{else}}
+								<input type="checkbox" name="reports" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="call_logs" class="control-label">{{ i18n.planFeatures.features.call_logs }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.call_logs "===" undefined}}
+							<input type="checkbox" name="call_logs">
+						{{else}}
+							{{#compare account.reseller_account.features.call_logs "===" false}}
+								<input type="checkbox" name="call_logs">
+							{{else}}
+								<input type="checkbox" name="call_logs" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="call_monitor" class="control-label">{{ i18n.planFeatures.features.call_monitor }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.call_monitor "===" undefined}}
+							<input type="checkbox" name="call_monitor">
+						{{else}}
+							{{#compare account.reseller_account.features.call_monitor "===" false}}
+								<input type="checkbox" name="call_monitor">
+							{{else}}
+								<input type="checkbox" name="call_monitor" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="callRecording" class="control-label">{{ i18n.planFeatures.features.callRecording }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.call_recording "===" undefined}}
+							<input type="checkbox" name="call_recording">
+						{{else}}
+							{{#compare account.reseller_account.features.call_recording "===" false}}
+								<input type="checkbox" name="call_recording">
+							{{else}}
+								<input type="checkbox" name="call_recording" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="internet_fax" class="control-label">{{ i18n.planFeatures.features.internet_fax }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.internet_fax "===" undefined}}
+							<input type="checkbox" name="internet_fax" checked>
+						{{else}}
+							{{#compare account.reseller_account.features.internet_fax "===" false}}
+								<input type="checkbox" name="internet_fax">
+							{{else}}
+								<input type="checkbox" name="internet_fax" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="sip_trunks" class="control-label">{{ i18n.planFeatures.features.sip_trunks }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.sip_trunks "===" undefined}}
+							<input type="checkbox" name="sip_trunks">
+						{{else}}
+							{{#compare account.reseller_account.features.sip_trunks "===" false}}
+								<input type="checkbox" name="sip_trunks">
+							{{else}}
+								<input type="checkbox" name="sip_trunks" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="web_hooks" class="control-label">{{ i18n.planFeatures.features.web_hooks }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.web_hooks "===" undefined}}
+							<input type="checkbox" name="web_hooks">
+						{{else}}
+							{{#compare account.reseller_account.features.web_hooks "===" false}}
+								<input type="checkbox" name="web_hooks">
+							{{else}}
+								<input type="checkbox" name="web_hooks" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label for="web_phone" class="control-label">{{ i18n.planFeatures.features.web_phone }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.web_phone "===" undefined}}
+							<input type="checkbox" name="web_phone">
+						{{else}}
+							{{#compare account.reseller_account.features.web_phone "===" false}}
+								<input type="checkbox" name="web_phone">
+							{{else}}
+								<input type="checkbox" name="web_phone" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="integration_aws" class="control-label">{{ i18n.planFeatures.features.integration_aws }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.integration_aws "===" undefined}}
+							<input type="checkbox" name="integration_aws">
+						{{else}}
+							{{#compare account.reseller_account.features.integration_aws "===" false}}
+								<input type="checkbox" name="integration_aws">
+							{{else}}
+								<input type="checkbox" name="integration_aws" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="integration_ms_teams" class="control-label">{{ i18n.planFeatures.features.integration_ms_teams }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.integration_ms_teams "===" undefined}}
+							<input type="checkbox" name="integration_ms_teams">
+						{{else}}
+							{{#compare account.reseller_account.features.integration_ms_teams "===" false}}
+								<input type="checkbox" name="integration_ms_teams">
+							{{else}}
+								<input type="checkbox" name="integration_ms_teams" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="private_recording" class="control-label">{{ i18n.planFeatures.features.private_recording }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.private_recording "===" undefined}}
+							<input type="checkbox" name="private_recording">
+						{{else}}
+							{{#compare account.reseller_account.features.private_recording "===" false}}
+								<input type="checkbox" name="private_recording">
+							{{else}}
+								<input type="checkbox" name="private_recording" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+				</div>
+			</div>
+
+					<!-- BETA FEATURES -->
+
+					<div class="control-group">
+						<label for="video_conferences" class="control-label">{{ i18n.planFeatures.features.video_conferences }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.video_conferences "===" undefined}}
+							<input type="checkbox" name="video_conferences">
+						{{else}}
+							{{#compare account.reseller_account.features.video_conferences "===" false}}
+								<input type="checkbox" name="video_conferences">
+							{{else}}
+								<input type="checkbox" name="video_conferences" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="collaboration" class="control-label">{{ i18n.planFeatures.features.collaboration }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.collaboration "===" undefined}}
+							<input type="checkbox" name="collaboration">
+						{{else}}
+							{{#compare account.reseller_account.features.collaboration "===" false}}
+								<input type="checkbox" name="collaboration">
+							{{else}}
+								<input type="checkbox" name="collaboration" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="text_messages" class="control-label">{{ i18n.planFeatures.features.text_messages }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.text_messages "===" undefined}}
+							<input type="checkbox" name="text_messages">
+						{{else}}
+							{{#compare account.reseller_account.features.text_messages "===" false}}
+								<input type="checkbox" name="text_messages">
+							{{else}}
+								<input type="checkbox" name="text_messages" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="transcriptions" class="control-label">{{ i18n.planFeatures.features.transcriptions }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.transcriptions "===" undefined}}
+							<input type="checkbox" name="transcriptions" id="transcriptions">
+						{{else}}
+							{{#compare account.reseller_account.features.transcriptions "===" false}}
+								<input type="checkbox" name="transcriptions" id="transcriptions">
+							{{else}}
+								<input type="checkbox" name="transcriptions" id="transcriptions" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="disa" class="control-label">{{ i18n.planFeatures.features.disa }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.disa "===" undefined}}
+							<input type="checkbox" name="disa">
+						{{else}}
+							{{#compare account.reseller_account.features.disa "===" false}}
+								<input type="checkbox" name="disa">
+							{{else}}
+								<input type="checkbox" name="disa" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="dynamic_callerid" class="control-label">{{ i18n.planFeatures.features.dynamic_callerid }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.dynamic_callerid "===" undefined}}
+							<input type="checkbox" name="dynamic_callerid">
+						{{else}}
+							{{#compare account.reseller_account.features.dynamic_callerid "===" false}}
+								<input type="checkbox" name="dynamic_callerid">
+							{{else}}
+								<input type="checkbox" name="dynamic_callerid" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="auto_attendants" class="control-label">{{ i18n.planFeatures.features.auto_attendants }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.auto_attendants "===" undefined}}
+							<input type="checkbox" name="auto_attendants">
+						{{else}}
+							{{#compare account.reseller_account.features.auto_attendants "===" false}}
+								<input type="checkbox" name="auto_attendants">
+							{{else}}
+								<input type="checkbox" name="auto_attendants" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="auto_forward" class="control-label">{{ i18n.planFeatures.features.auto_forward }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.auto_forward "===" undefined}}
+							<input type="checkbox" name="auto_forward">
+						{{else}}
+							{{#compare account.reseller_account.features.auto_forward "===" false}}
+								<input type="checkbox" name="auto_forward">
+							{{else}}
+								<input type="checkbox" name="auto_forward" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="auto_route" class="control-label">{{ i18n.planFeatures.features.auto_route }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.auto_route "===" undefined}}
+							<input type="checkbox" name="auto_route">
+						{{else}}
+							{{#compare account.reseller_account.features.auto_route "===" false}}
+								<input type="checkbox" name="auto_route">
+							{{else}}
+								<input type="checkbox" name="auto_route" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="select_route" class="control-label">{{ i18n.planFeatures.features.select_route }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.select_route "===" undefined}}
+							<input type="checkbox" name="select_route">
+						{{else}}
+							{{#compare account.reseller_account.features.select_route "===" false}}
+								<input type="checkbox" name="select_route">
+							{{else}}
+								<input type="checkbox" name="select_route" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="select_route" class="control-label">{{ i18n.planFeatures.features.callflows }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.features.callflows "===" undefined}}
+							<input type="checkbox" name="callflows">
+						{{else}}
+							{{#compare account.reseller_account.features.callflows "===" false}}
+								<input type="checkbox" name="callflows">
+							{{else}}
+								<input type="checkbox" name="callflows" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+				</form>
+				<div class="clearfix buttons-div">
+					<button id="accountsmanager_planfeatures_save" class="monster-button-success">{{i18n.update}}</button>
+				</div>
+			</div>
+
+			<div class="tab-pane" id="accountsmanager_planoptions_tab">
+				<form id="accountsmanager_planoptions_form" class="form-horizontal">
+					<legend>{{ i18n.planOptions.legend }}</legend>
+
+					<div class="control-group">
+						<label for="discount_code" class="control-label">Store Discount Code</label>
+						<div class="controls">
+							<input type="text" id="accountsmanager_reseller_account_discount_code" name="discount_code" value="{{account.reseller_account.discount_code}}" data-original_value="{{account.reseller_account.discount_code}}" maxlength="32" placeholder="Generated in Shopify"/>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="custom_store_path" class="control-label">Custom Store Path</label>
+						<div class="controls">
+							<input type="text" id="accountsmanager_reseller_account_custom_store_path" name="custom_store_path" value="{{account.reseller_account.custom_store_path}}" data-original_value="{{account.reseller_account.custom_store_path}}" placeholder="/collection/page-name"/>
+						</div>
+					</div>
+
+				</form>
+				<div class="clearfix buttons-div">
+					<button id="accountsmanager_planoptions_save" class="monster-button-success">{{i18n.update}}</button>
+				</div>
+			</div>
+
+			<div class="tab-pane" id="accountsmanager_plancompliance_tab">
+				<form id="accountsmanager_plancompliance_form" class="form-horizontal">
+					<legend>{{ i18n.planCompliance.legend }}</legend>
+
+					<div class="control-group">
+						<label for="notifications" class="control-label">{{ i18n.planCompliance.notifications }}</label>
+						<div class="controls">
+						{{#monsterSwitch}}
+						{{#compare account.reseller_account.compliance.notifications "===" undefined}}
+							<input type="checkbox" name="notifications" checked>
+						{{else}}
+							{{#compare account.reseller_account.compliance.notifications "===" false}}
+								<input type="checkbox" name="notifications">
+							{{else}}
+								<input type="checkbox" name="notifications" checked>
+							{{/compare}}
+						{{/compare}}
+						{{/monsterSwitch}}
+						</div>
+					</div>
+
+				</form>
+				<div class="clearfix buttons-div">
+					<button id="accountsmanager_plancompliance_save" class="monster-button-success">{{i18n.update}}</button>
+				</div>
+			</div>
+
+			<!-- <div class="tab-pane" id="accountsmanager_appstore_tab">
+				<legend>
+					{{ i18n.appstoreLegend }}
+
+					<span class="toggle-wrapper pull-right">
+						<span class="title">{{ i18n.toggleAll }}</span>
+
+						{{#monsterSwitch}}
+							<input type="checkbox" class="app-global-toggle" checked/>
+						{{/monsterSwitch}}
+					</span>
+				</legend>
+				<div class="apps-container">
+					{{#each appsList}}
+					<div class="app-row clearfix{{#if blacklisted}} blacklisted{{/if}}">
+						<div class="app-row-content">
+							<div class="app-icon {{extraCssClass}}" style="background-image:url({{icon}})"></div>
+							<div class="app-name" data-toggle="tooltip" data-placement="top" data-original-title="{{description}}">{{friendlyName}}</div>
+							<div class="app-toggle-container pull-right">
+								{{#monsterSwitch}}
+								<input type="checkbox" data-id={{id}} class="app-toggle"{{#unless blacklisted}} checked{{/unless}}/>
+								{{/monsterSwitch}}
+							</div>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+				<div class="clearfix buttons-div">
+					<button type="button" id="accountsmanager_appstore_save" class="monster-button-success">{{ i18n.update }}</button>
+				</div>
+			</div> -->
+
 		</div>
 	</div>
 </div>
